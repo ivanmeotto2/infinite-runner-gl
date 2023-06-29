@@ -1,4 +1,5 @@
 import AnimationKeys from '~/constants/AnimationKeys';
+import SceneKeys from '~/constants/SceneKeys';
 import TextureKeys from '~/constants/TextureKeys';
 
 enum MouseState {
@@ -29,8 +30,8 @@ export default class RocketMouse extends Phaser.GameObjects.Container {
     scene.physics.add.existing(this);
 
     const body = this.body as Phaser.Physics.Arcade.Body;
-    body.setSize(this.mouse.width * 0.4, this.mouse.height);
-    body.setOffset(this.mouse.width * -0.2, -this.mouse.height);
+    body.setSize(this.mouse.width * 0.5, this.mouse.height * 0.7);
+    body.setOffset(this.mouse.width * -0.3, -this.mouse.height + 15);
   }
 
   preUpdate() {
@@ -38,11 +39,11 @@ export default class RocketMouse extends Phaser.GameObjects.Container {
     switch (this.mouseState) {
       case MouseState.Running: {
         if (this.cursors.space.isDown) {
-          body.setAccelerationY(-1100);
+          body.setVelocityY(-600);
           this.enableJetpack(true);
           this.mouse.play(AnimationKeys.RocketMouseFly, true);
         } else {
-          body.setAccelerationY(1100);
+          body.setVelocityY(600);
           this.enableJetpack(false);
         }
 
@@ -54,14 +55,15 @@ export default class RocketMouse extends Phaser.GameObjects.Container {
         break;
       }
       case MouseState.Killed: {
-        body.velocity.x *= 0.99;
-        if (body.velocity.x <= 5) {
+        body.velocity.x *= 0.95;
+        if (body.velocity.x <= 10) {
           this.mouseState = MouseState.Dead;
         }
         break;
       }
       case MouseState.Dead: {
-        body.setVelocity(0, 0);
+        body.setVelocity(0, 1000);
+        this.scene.scene.run(SceneKeys.GameOverScene);
         break;
       }
     }
@@ -79,8 +81,8 @@ export default class RocketMouse extends Phaser.GameObjects.Container {
     this.mouse.play(AnimationKeys.RocketMouseDead);
 
     const body = this.body as Phaser.Physics.Arcade.Body;
-    body.setAccelerationY(0);
-    body.setVelocity(1000, 0);
+    body.setAccelerationY(100);
+    body.setVelocity(1000, 100);
     this.enableJetpack(false);
   }
 }

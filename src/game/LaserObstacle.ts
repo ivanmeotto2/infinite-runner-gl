@@ -9,7 +9,7 @@ export default class LaserObstacle extends Phaser.GameObjects.Container {
 
     const middle = scene.add.image(0, top.y + top.displayHeight, TextureKeys.LaserMiddle).setOrigin(0.5, 0);
 
-    middle.setDisplaySize(middle.width, 50);
+    middle.setDisplaySize(middle.width, 100);
 
     const bottom = scene.add
       .image(0, middle.y + middle.displayHeight, TextureKeys.LaserEnd)
