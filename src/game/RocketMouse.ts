@@ -12,11 +12,15 @@ export default class RocketMouse extends Phaser.GameObjects.Container {
   private flames: Phaser.GameObjects.Sprite;
   private mouse: Phaser.GameObjects.Sprite;
   private cursors: Phaser.Types.Input.Keyboard.CursorKeys;
+  hasAlreadyShownGameOver: boolean = false;
+  score: number = 0;
 
   private mouseState = MouseState.Running;
 
   constructor(scene: Phaser.Scene, x: number, y: number) {
     super(scene, x, y);
+
+    this.score = 0;
 
     this.mouse = scene.add.sprite(0, 0, 'rocket-mouse', 'rocketmouse_fly01.png').setOrigin(0.5, 1).play(AnimationKeys.RocketMouseRun);
 
@@ -63,7 +67,11 @@ export default class RocketMouse extends Phaser.GameObjects.Container {
       }
       case MouseState.Dead: {
         body.setVelocity(0, 1000);
-        this.scene.scene.run(SceneKeys.GameOverScene);
+        if (!this.hasAlreadyShownGameOver) {
+          this.scene.scene.run(SceneKeys.Leaderboard, { score: this.score });
+          this.scene.scene.run(SceneKeys.GameOverScene);
+          this.hasAlreadyShownGameOver = true;
+        }
         break;
       }
     }

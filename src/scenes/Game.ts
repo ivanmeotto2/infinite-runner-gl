@@ -18,17 +18,12 @@ export default class GameScene extends Phaser.Scene {
   private coins!: Phaser.Physics.Arcade.StaticGroup;
 
   private scoreLabel!: Phaser.GameObjects.Text;
-  private score = 0;
 
   private bookcases: Phaser.GameObjects.Image[] = [];
   private windows: Phaser.GameObjects.Image[] = [];
 
   constructor() {
     super(SceneKeys.GameScene);
-  }
-
-  init() {
-    this.score = 0;
   }
 
   create() {
@@ -75,7 +70,7 @@ export default class GameScene extends Phaser.Scene {
     body.setVelocityX(500);
 
     this.scoreLabel = this.add
-      .text(10, 10, `Score: ${this.score}`, {
+      .text(10, 10, `Score: ${this.mouse.score}`, {
         fontSize: '24px',
         color: '#080808',
         backgroundColor: '#F8E71C',
@@ -166,8 +161,6 @@ export default class GameScene extends Phaser.Scene {
   }
 
   private handleOverlapLaser(obj1: Phaser.GameObjects.GameObject, obj2: Phaser.GameObjects.GameObject) {
-    console.log('overlap!');
-
     (obj1 as RocketMouse).die();
   }
 
@@ -178,8 +171,8 @@ export default class GameScene extends Phaser.Scene {
 
     coin.body.enable = false;
 
-    this.score += 1;
-    this.scoreLabel.text = `Score ${this.score}`;
+    this.mouse.score += 1;
+    this.scoreLabel.text = `Score ${this.mouse.score}`;
   }
 
   private spawnCoins() {

@@ -9,7 +9,7 @@ export default class GameOverScene extends Phaser.Scene {
   create() {
     const { width, height } = this.scale;
     const x = width * 0.5;
-    const y = height * 0.5;
+    const y = height * 0.9;
 
     this.add
       .text(x, y, 'Press SPACE to play again', {
@@ -24,6 +24,7 @@ export default class GameOverScene extends Phaser.Scene {
     this.input.keyboard.once('keydown-SPACE', () => {
       this.scene.stop(SceneKeys.GameOverScene);
       this.scene.stop(SceneKeys.GameScene);
+      this.scene.stop(SceneKeys.Leaderboard);
       this.scene.start(SceneKeys.GameScene);
     });
   }

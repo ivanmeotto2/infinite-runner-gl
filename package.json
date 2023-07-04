@@ -16,6 +16,7 @@
 	},
 	"homepage": "https://github.com/ourcade/phaser3-parcel-template",
 	"devDependencies": {
+		"@types/uuid": "^9.0.2",
 		"@typescript-eslint/eslint-plugin": "^2.29.0",
 		"@typescript-eslint/parser": "^2.29.0",
 		"eslint": "^6.8.0",
@@ -25,7 +26,11 @@
 		"typescript": "^3.8.3"
 	},
 	"dependencies": {
-		"phaser": "^3.55.2"
+		"firebase": "^9.23.0",
+		"phaser": "^3.55.2",
+		"phaser3-rex-plugins": "^1.60.3",
+		"unique-names-generator": "^4.7.1",
+		"uuid": "^9.0.0"
 	},
 	"parcelCleanPaths": [
 		"dist"
