@@ -45,7 +45,6 @@ export default class Leaderboard extends Phaser.Scene {
   async create() {
     const actualScore = await this.leaderboard?.getScore(this.userId!);
     if (!actualScore?.score || (actualScore?.score && actualScore?.score < this.newScore)) {
-      if (actualScore?.score) await this.leaderboard?.deleteUserScore(this.userId!);
       await this.leaderboard?.post(this.newScore);
     }
 
